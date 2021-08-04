@@ -9,20 +9,18 @@ class Leaderboard extends Component {
     return (
       <div className="leaderboard">
       	<ul>
-      	{Object.values(users).map((user) => (
+      	{users.map((user) => (
     		<li key={user.id} className="details">
 				<div className="col-left">
                     <img src={user.avatarURL} className="user-avatar" alt={`${user.name} Avatar`} />
                 </div>
                 <div className="col-middle">
-                    <ol>
-                    	<li>{user.name}</li>
-                        <li>Answered Questions: {Object.keys(user.answers).length}</li>
-                        <li>Created Questions: {user.questions.length}</li>
-                    </ol>    
+                    <p>{user.name}</p>
+                    <p>Answered Questions: {user.totalAnswer}</p>
+                    <p>Created Questions: {user.totalQuestion}</p>
                 </div>
                 <div className="col-right">
-                    <span>Score: {(Object.keys(user.answers).length + user.questions.length)}</span>      
+                    <span>Score: {user.score}</span>      
                 </div>
       		</li>
     	))}
@@ -33,8 +31,16 @@ class Leaderboard extends Component {
 }
 
 function mapStateToProps({users}){
+	const boardUsers = Object.values(users);
+    
+    for(const user of boardUsers){
+    	user.totalAnswer = Object.keys(user.answers).length
+        user.totalQuestion = user.questions.length
+        user.score = user.totalAnswer + user.totalQuestion
+    }
+    
 	return {
-		users
+		users: boardUsers.sort((a,b) => b.score - a.score),
 	}
 }
 

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ProgressBar } from 'react-bootstrap'
 
 class Poll extends Component {
   
   render() {
     const { user, question, usercount, authedUser } = this.props
-    const optionOnePoll = parseInt((question.optionOne.votes.length / usercount) * 100)
-    const optionTwoPoll = parseInt((question.optionTwo.votes.length / usercount) * 100)
+    const optionOneVotes = question.optionOne.votes.length
+    const optionTwoVotes = question.optionTwo.votes.length
+    const optionOnePoll = parseInt((optionOneVotes / usercount) * 100) + ''
+    const optionTwoPoll = parseInt((optionTwoVotes / usercount) * 100) + ''
     
     return(
       <div  className="question-section">
@@ -23,16 +24,18 @@ class Poll extends Component {
                 <ol>
                 	<li>
                     	<div className="option-one">
-                        	<span>Would you rather {question.optionOne.text}?</span>
-                            <span>{optionOnePoll}%</span>
-                            { question.optionOne.votes.includes(authedUser) && (<span>Your Vote</span>)}
+                        	<p>Would you rather {question.optionOne.text}?</p>
+                            <p>Total Votes: {optionOneVotes}</p>
+                            <p>{optionOnePoll}%</p>
+                            { question.optionOne.votes.includes(authedUser) && (<p className="your-vote">Your Vote</p>)}
                         </div>
                     </li>
                     <li>
                     	<div className="option-two">
-                        	<span>Would you rather {question.optionTwo.text}?</span>
-                            <span>{optionTwoPoll}%</span>
-                            { question.optionTwo.votes.includes(authedUser) && (<span>Your Vote</span>)}
+                        	<p>Would you rather {question.optionTwo.text}?</p>
+                            <p>Total Votes: {optionTwoVotes}</p>
+                            <p>{optionTwoPoll}%</p>
+                            { question.optionTwo.votes.includes(authedUser) && (<p className="your-vote">Your Vote</p>)}
                         </div>
                     </li>
                 </ol>

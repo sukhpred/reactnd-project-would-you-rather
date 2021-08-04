@@ -38,7 +38,7 @@ class Login extends Component {
   
   render() {
     const { users } = this.props
-    console.log('users: ',users)
+    
     return (
       <div className='container' >
       	<div className='login-header'>
@@ -48,9 +48,9 @@ class Login extends Component {
         <img src={logo} className="App-logo" alt="logo" />
       	<br />
   		<select onChange={this.handleChange} value={this.state.userId}>
-          <option value='' >Select User</option>
+          <option value='' key=''>Select User</option>
   		  {Object.values(users).map((user) => (
-          <option value={user.id} >{user.name}</option>
+          <option value={user.id} key={user.id}>{user.name}</option>
           ))}
         </select>
 		<button className='btn'

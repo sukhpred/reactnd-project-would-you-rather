@@ -34,10 +34,10 @@ class Dashboard extends Component {
       		<ul>
       		{showAnswer === true 
       			? (Object.values(answerQuestion).map( (question) => (
-    				<QuestionPage id={question.id} />
+    				<QuestionPage id={question.id} key={question.id} />
     				)))
                 : (Object.values(unanswerQuestion).map( (question) => (
-    				<QuestionPage id={question.id} />
+    				<QuestionPage id={question.id} key={question.id} />
     				)))
       		}
             </ul>

@@ -22,15 +22,9 @@ class AnswerQuestion extends Component {
   
   handleSubmit = (e) => {
 	  e.preventDefault()
-	  
-	  const { answer, toPoll } = this.state
-      const { question } = this.props
-      
-      if(toPoll === true) {
-		  return <Redirect to='/' />
-	  }
-	  
-	  const { dispatch } = this.props
+	 
+      const { dispatch, question } = this.props
+      const { answer } = this.state
 	  
 	  dispatch(handleSaveQuestionAnswer(question.id, answer))
 	  
@@ -43,6 +37,11 @@ class AnswerQuestion extends Component {
   render() {
     
     const { user, question } = this.props
+    const { toPoll, answer } = this.state
+    
+    if(toPoll === true) {
+		  return <Redirect to={`/questions/${question.id}`} />
+	}
 	
     return(
       <div className="question-section">
@@ -63,7 +62,7 @@ class AnswerQuestion extends Component {
                     name="rather"
                     id="optionOne"
                 />
-                <label for="optionOne">{question.optionOne.text}</label>
+                <label>{question.optionOne.text}</label>
                 <br />
                 <input 
                     type="radio"
@@ -72,11 +71,12 @@ class AnswerQuestion extends Component {
                     name="rather"
                     id="optionTwo"
                 />
-                <label for="optionTwo">{question.optionTwo.text}</label>
+                <label>{question.optionTwo.text}</label>
                 <br />
                 <button
                     className='btn'
                     type='submit'
+					disabled={answer === ''}
                 >
                   Submit
                 </button>

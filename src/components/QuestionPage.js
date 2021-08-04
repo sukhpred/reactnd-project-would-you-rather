@@ -4,16 +4,26 @@ import { Redirect } from 'react-router-dom'
 
 class QuestionPage extends Component {
   
+  state = {
+	  toPoll: false,
+  }
+  
   handlePoll = (e) => {
   	e.preventDefault()
-
-    const { id } = this.props
     
-    return (<Redirect to={`/questions/${id}`} />)
+    this.setState(() => ({
+		  toPoll: true,
+	  }))
   }
   
   render() {
 	const { id, user, answerText} = this.props
+    
+    const toPoll = this.state.toPoll
+    
+    if(toPoll === true){
+    	return <Redirect to={`/questions/${id}`} />
+    }
     
     return(
       <li key={id}>

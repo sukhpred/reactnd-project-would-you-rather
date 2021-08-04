@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddQuestion } from '../actions/questions'
-import { Redirect } from 'react-router-dom'
-import { handleInitialData } from '../actions/shared'
 
 class NewQuestion extends Component {
   state = {
@@ -34,14 +32,13 @@ class NewQuestion extends Component {
 	  const { dispatch } = this.props
 	  
 	  dispatch(handleAddQuestion(optionOneText, optionTwoText))
-      dispatch(handleInitialData())
 	  
 	  this.setState(() => ({
 		  optionOneText: '',
 		  optionTwoText: '',
 	  }))
         
-      return <Redirect to='/' />
+      this.props.history.push('/');
   }
   
   render() {
@@ -63,13 +60,16 @@ class NewQuestion extends Component {
 				onChange={this.handleChange}
 				name="optionOne"
 			/>
+            <br/>
             OR
+            <br/>
     		<input 
 				placeholder="Enter Option Two Text Here.."
 				value={optionTwoText}
 				onChange={this.handleChange}
 				name="optionTwo"
 			/>
+            <br/>
 			<button
 				className='btn'
 				type='submit'
